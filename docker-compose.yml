@@ -13,6 +13,8 @@ services:
       io.balena.features.dbus: 1
     ports:
       - 4317:4317
+    depends_on:
+      - sound-supervisor
 
   sound-supervisor:
     build: ./core/sound-supervisor
@@ -43,6 +45,9 @@ services:
       - NET_ADMIN
     labels:
       io.balena.features.dbus: 1
+    depends_on:
+      - audio
+      - sound-supervisor
 
   airplay:
     build: ./plugins/airplay
@@ -51,6 +56,9 @@ services:
     privileged: true
     labels:
       io.balena.features.dbus: 1
+    depends_on:
+      - audio
+      - sound-supervisor
 
   # spotify:
   #   build: ./plugins/spotify
